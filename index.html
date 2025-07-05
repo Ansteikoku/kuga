@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>わかくさ掲示板 - 板一覧</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>わかくさ掲示板</h1>
+  <ul id="board-list"></ul>
+  <script src="supabase.js"></script>
+  <script>
+    const list = document.getElementById("board-list");
+    supabase.from("boards").select("*").then(({ data }) => {
+      data.forEach(board => {
+        const li = document.createElement("li");
+        const a = document.createElement("a");
+        a.href = `board.html?slug=${board.slug}`;
+        a.textContent = board.name;
+        li.appendChild(a);
+        list.appendChild(li);
+      });
+    });
+  </script>
+</body>
+</html>
